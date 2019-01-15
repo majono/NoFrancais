@@ -14,8 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import de.nolteweb.nofrancais.dummy.DummyContent;
-
 import java.util.List;
 
 /**
@@ -66,19 +64,19 @@ public class VocabularyListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, VocabularyContent.ITEMS, mTwoPane));
     }
 
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final ItemListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
+        private final VocabularyListActivity mParentActivity;
+        private final List<VocabularyContent.VocabularyItem> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+                VocabularyContent.VocabularyItem item = (VocabularyContent.VocabularyItem) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
                     arguments.putString(VocabularyDetailFragment.ARG_ITEM_ID, item.id);
@@ -98,7 +96,7 @@ public class VocabularyListActivity extends AppCompatActivity {
         };
 
         SimpleItemRecyclerViewAdapter(VocabularyListActivity parent,
-                                      List<DummyContent.DummyItem> items,
+                                      List<VocabularyContent.VocabularyItem> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;
@@ -115,7 +113,7 @@ public class VocabularyListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            holder.mContentView.setText(mValues.get(position).vocabulary);
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
