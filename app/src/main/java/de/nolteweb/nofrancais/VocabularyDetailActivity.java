@@ -25,12 +25,19 @@ public class VocabularyDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
+        Bundle arguments = new Bundle();
+        arguments.putString(VocabularyDetailFragment.ARG_ITEM_ID,
+                getIntent().getStringExtra(VocabularyDetailFragment.ARG_ITEM_ID));
+        final VocabularyDetailFragment fragment = new VocabularyDetailFragment();
+        fragment.setArguments(arguments);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Object itemId = fragment.getArguments().get(VocabularyDetailFragment.ARG_ITEM_ID);
+                String itemIdStr = (String) itemId;
+                int itemIdInt = Integer.valueOf(itemIdStr).intValue();
+                VocabularyContent.VocabularyItem mItem = VocabularyContent.getItems(getApplicationContext()).get(itemIdInt);
             }
         });
 
@@ -52,10 +59,6 @@ public class VocabularyDetailActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putString(VocabularyDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(VocabularyDetailFragment.ARG_ITEM_ID));
-            VocabularyDetailFragment fragment = new VocabularyDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.vocabulary_detail_container, fragment)

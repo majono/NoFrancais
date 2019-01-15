@@ -26,6 +26,7 @@ import java.util.List;
  */
 public class VocabularyListActivity extends AppCompatActivity {
 
+    private static List<VocabularyContent.VocabularyItem> mValues;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -61,10 +62,11 @@ public class VocabularyListActivity extends AppCompatActivity {
         View recyclerView = findViewById(R.id.vocabulary_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
+        mValues = VocabularyContent.getItems(getApplicationContext());
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, VocabularyContent.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, VocabularyContent.getItems(getApplicationContext()), mTwoPane));
     }
 
     public static class SimpleItemRecyclerViewAdapter
